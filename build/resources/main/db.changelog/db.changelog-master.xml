@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+  <changeSet author="anton.claudia" id="000">
+    <createSequence sequenceName="UTILIZATOR_ID_SQ" startValue="50"/>
+    <createSequence sequenceName="CURS_ID_SQ" startValue="50"/>
+    <createSequence sequenceName="INTREBARE_ID_SQ" startValue="50"/>
+    <createSequence sequenceName="PUNCTAJ_ID_SQ" startValue="50"/>
+  </changeSet>
+
+  <changeSet author="anton.claudia" id="001">
+    <createTable tableName="UTILIZATOR">
+      <column name="ID" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="UTILIZATOR_PK"/>
+      </column>
+      <column name="UTILIZATORNAME" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="PASSWORD" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="CURS" >
+      <column name="ID" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="CURS_PK"/>
+      </column>
+      <column name="DENUMIRE" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="TITLU" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="DESCRIERE" type="java.lang.string">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="INTREBARE">
+      <column name="ID" type="BIGINT" >
+        <constraints nullable="false" primaryKey="true" primaryKeyName="INTREBARE_PK"/>
+      </column>
+      <column name="CURS_ID" type="BIGINT" >
+        <constraints foreignKeyName="CURS_INTREBARE_FK"
+                     nullable="false"
+                     references="CURS(ID)"/>
+      </column>
+      <column name="TEXT" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RASPUNS1" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RASPUNS2" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RASPUNS3" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RASPUNS4" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RASPUNS_CORECT" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="PUNCTAJ" >
+      <column name="ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="UTILIZATOR_ID" type="BIGINT">
+        <constraints foreignKeyName="UTILIZATOR_PUNCTAJ_FK"
+                     nullable="false"
+                     references="UTILIZATOR(ID)"
+                     primaryKey="true" primaryKeyName="UTILIZATOR_CURS_INTREBARE_PK"/>
+      </column>
+      <column name="CURS_ID" type="BIGINT">
+        <constraints foreignKeyName="CURS_PUNCTAJ_FK"
+                     nullable="false"
+                     references="CURS(ID)"
+                     primaryKey="true" primaryKeyName="UTILIZATOR_CURS_PK"
+        />
+      </column>
+      <column name="INTREBARE_ID" type="BIGINT">
+        <constraints foreignKeyName="INTREBARE_PUNCTAJ_FK"
+                     nullable="false"
+                     references="INTREBARE(ID)"
+                     primaryKey="true" primaryKeyName="UTILIZATOR_CURS_INTREBARE_PK"/>
+      </column>
+      <column name="PUNCT" type="INT"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="claudia.anton" id="002">
+    <loadData file="includes/data-user.csv" relativeToChangelogFile="true"
+              tableName="UTILIZATOR"/>
+
+    <loadData file="/includes/data-curs.csv" relativeToChangelogFile="true"
+              tableName="CURS"/>
+
+    <loadData file="includes/data-intrebare.csv" relativeToChangelogFile="true"
+              tableName="INTREBARE"/>
+  </changeSet>
+
+</databaseChangeLog>

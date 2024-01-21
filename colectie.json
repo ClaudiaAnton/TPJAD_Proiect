@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "196cc362-0a86-48eb-a6d6-2f0d7cdf429f",
+		"name": "Invatare Interactiva",
+		"description": "DTO-uri:\n\nGetCursDto (String denumire; String descriere; Long nrIntrebari)\n\nGetIntrebareDto (String text; String raspuns1; String raspuns2; String raspuns3; String raspuns4)\n\nRaspunsDto (Long intrebareId; Long utilizatorId; String raspuns)\n\nPunctajDto (Long id; UtilizatorDto utilizator; Long cursId; Long intrebareId; int punct)\n\nLoginRequestDto (String utilizatorName; String password)\n\nLoginResponseDto (UtilizatorDto utilizator; int scorTotal; Long idCursCurent)\n\nValidareTestDto (boolean testTrecut; int puncteObtinute)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27349959"
+	},
+	"item": [
+		{
+			"name": "Curs",
+			"item": [
+				{
+					"name": "getCurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/core/curs/{cursId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"curs",
+								"{cursId}"
+							]
+						},
+						"description": "Get pt. curs\n\n\\-primeste: (Long cursId)\n\n\\-returneaza: GetCursDto"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpointuri curs"
+		},
+		{
+			"name": "Intrebare",
+			"item": [
+				{
+					"name": "getUrmatoareaIntrebare",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/core/intrebare/{userId}/{cursId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"intrebare",
+								"{userId}",
+								"{cursId}"
+							]
+						},
+						"description": "Get pt. urmatoarea intrebare\n\n\\-primeste: (Long userId, Long cursId)\n\n\\-returneaza: GetIntrebareDto"
+					},
+					"response": []
+				},
+				{
+					"name": "updateIntrebare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"intrebareId\": 1,\r\n    \"utilizatorId\": 1,\r\n    \"raspuns\": \"raspuns-corect\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/core/intrebare/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"intrebare",
+								"update"
+							]
+						},
+						"description": "Update pt. urmatoarea intrebare\n\n\\-primeste: RaspunsDto\n\n\\-returneaza: PunctajDto\n\n```\n/*\n* input: un obiect continand intrebareId,utilizatorId, raspuns(String)\n* output: punctajul obtinut de utilizatorul cu utilizatorId, la intrebarea cu intrebareId cu raspunsul dat\n*/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "refreshTest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/core/intrebare/refresh/{userId}/{cursId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"intrebare",
+								"refresh",
+								"{userId}",
+								"{cursId}"
+							]
+						},
+						"description": "Face refresh la test\n\n\\-primeste: (Long userId, Long cursId)\n\n\\-returneaza: Void"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpointuri intrebare"
+		},
+		{
+			"name": "Utilizator",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"utilizatorName\": \"username\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/core/utilizator/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"utilizator",
+								"login"
+							]
+						},
+						"description": "Face login pt. user\n\n\\-primeste: LoginRequestDto\n\n\\-returneaza: LoginResponseDto"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpointuri utilizator"
+		},
+		{
+			"name": "Punctaj",
+			"item": [
+				{
+					"name": "validareTest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/core/punctaj/validare-test/{utilizatorId}/{cursId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"core",
+								"punctaj",
+								"validare-test",
+								"{utilizatorId}",
+								"{cursId}"
+							]
+						},
+						"description": "Face validare pt. test\n\n\\-primeste: (Long utilizatorId, Long cursId)\n\n\\-returneaza: ValidareTestDto"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpointuri punctaj"
+		}
+	]
+}
