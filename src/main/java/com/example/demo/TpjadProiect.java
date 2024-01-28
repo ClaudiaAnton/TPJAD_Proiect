@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InvatareInteractivaApplication {
+public class TpjadProiect {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InvatareInteractivaApplication.class, args);
+		SpringApplication.run(TpjadProiect.class, args);
 	}
 
 }

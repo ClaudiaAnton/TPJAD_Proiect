@@ -1,17 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Curs;
 import com.example.demo.dto.GetCursDto;
 import com.example.demo.enums.BusinessErrorCode;
 import com.example.demo.exceptions.BusinessException;
 import com.example.demo.exceptions.BusinessException.BusinessExceptionElement;
 import com.example.demo.repository.CursRepo;
 import com.example.demo.repository.IntrebareRepo;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
